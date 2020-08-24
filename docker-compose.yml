@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://layout_db:3306/floor_layout_app?useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: layout_db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=floor_layout_app
+      - MYSQL_PASSWORD=Fibonacci12358
+    ports:
+    - 3306:3306
+    expose:
+      - 3306
