@@ -25,17 +25,35 @@
     let ctx = canvas.getContext("2d");
     ctx.translate(500, 250);
 
-    let scale = 100;
+    ctx.beginPath();
+
+    ctx.scale(4,4);
+
+
+    /*
+    ctx.moveTo(pointsArr[0].x, pointsArr[0].y);
+
+    for(let i = 1; i < pointsArr.length; i++) {
+        ctx.lineTo(pointsArr[i].x, pointsArr[i].y);
+    }
+
+    ctx.lineTo(pointsArr[0].x, pointsArr[0].y);
+     */
+
+    let scl = 20;
 
     ctx.beginPath();
 
-    ctx.moveTo(pointsArr[0].x + scale, pointsArr[0].y + scale);
+    ctx.translate(-scl, -scl);
 
-    for(let i = 1; i < pointsArr.length; i++) {
-        ctx.lineTo(pointsArr[i].x + scale, pointsArr[i].y + scale);
+    for(let i=0; i<pointsArr.length; i++){
+        let sx=scl*pointsArr[i].x;
+        let sy=scl*pointsArr[i].y;
+        if(i===0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
     }
 
-    ctx.lineTo(pointsArr[0].x + scale, pointsArr[0].y + scale);
+    ctx.lineTo(pointsArr[0].x * scl, pointsArr[0].y * scl);
+
     ctx.stroke();
 
 </script>

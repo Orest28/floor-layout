@@ -96,6 +96,6 @@ public class RoomService {
         double v3 = (p2.getX() - p1.getX()) * (p3.getY() - p1.getY()) - (p2.getY() - p1.getY()) * (p3.getX() - p1.getX());
         double v4 = (p2.getX() - p1.getX()) * (p4.getY() - p1.getY()) - (p2.getY() - p1.getY()) * (p4.getX() - p1.getX());
 
-        return (v1*v2 < 0) && (v3 * v4 < 0);
+        return (v1*v2 <= 0) && (v3 * v4 <= 0);
     }
 }
