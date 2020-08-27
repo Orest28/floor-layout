@@ -10,7 +10,6 @@ services:
 #      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/floor_layout_app?useSSL=false&allowPublicKeyRetrieval=true
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://layout_db:3306/floor_layout_app?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
-
     depends_on:
       - db
 

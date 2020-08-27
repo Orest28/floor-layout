@@ -12,7 +12,7 @@ RUN mvn clean install -DskipTests
 ARG JAR_FILE=target/*.jar
 #ADD ./target/*.jar /dev/
 COPY ${JAR_FILE} app.jar
-#ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
 
 
 
