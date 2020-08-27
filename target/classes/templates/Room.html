@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Room</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+</head>
+<body>
+<div th:include="navigation" class="ui massive inverted menu"></div>
+
+<div class="ui grid centered">
+    <div class="row">
+        <canvas id="myCanvas" width="1000" height="500" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    let pointsArr = [[${points}]];
+
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    ctx.translate(500, 250);
+
+    ctx.beginPath();
+
+    ctx.scale(4,4);
+
+
+    /*
+    ctx.moveTo(pointsArr[0].x, pointsArr[0].y);
+
+    for(let i = 1; i < pointsArr.length; i++) {
+        ctx.lineTo(pointsArr[i].x, pointsArr[i].y);
+    }
+
+    ctx.lineTo(pointsArr[0].x, pointsArr[0].y);
+     */
+
+    let scl = 20;
+
+    ctx.beginPath();
+
+    ctx.translate(-scl, -scl);
+
+    for(let i=0; i<pointsArr.length; i++){
+        let sx=scl*pointsArr[i].x;
+        let sy=scl*pointsArr[i].y;
+        if(i===0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+    }
+
+    ctx.lineTo(pointsArr[0].x * scl, pointsArr[0].y * scl);
+
+    ctx.stroke();
+
+</script>
+
+</body>
+</html>

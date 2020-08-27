@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+    <link rel="stylesheet" th:href="@{main.css}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+</head>
+<body>
+    <div th:include="navigation" class="ui massive inverted menu"></div>
+
+    <div class="ui centered grid">
+        <div class="five column row">
+            <div class="column">
+                <div class="ui huge action input">
+                    <input type="number" min="0" id="roomsCount" placeholder="Select number of points">
+                    <button class="ui button" onclick="createForm()">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="row"></div>
+    </div>
+
+    <div class="ui container row" id="form-container">
+        <form class="ui form" id="point-list">
+
+        </form>
+    </div>
+
+    <script type="text/javascript" th:src="@{js/home.js}"></script>
+</body>
+</html>
