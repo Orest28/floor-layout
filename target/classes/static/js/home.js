@@ -80,11 +80,3 @@ function createForm() {
     buttonSend.type = "button";
     coordinatesBlock.appendChild(buttonSend);
 }
-
-
-/*
-.then(response => response.json())
-        .then((data) => {
-            console.log(data);
-        })
- */

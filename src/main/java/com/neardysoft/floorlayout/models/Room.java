@@ -27,6 +27,8 @@ public class Room {
         this.point = point;
     }
 
+
+
     public Long getId() {
         return id;
     }

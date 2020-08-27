@@ -2,6 +2,8 @@ addEventListener('load', fillData);
 
 async function fillData() {
 
+    console.log("hello from FILL")
+
     let element = document.getElementById("content");
 
     let table = document.createElement('table');

@@ -6,20 +6,10 @@ RUN mvn verify clean --fail-never
 
 COPY . /app
 RUN mvn -v
-RUN mvn clean install -DskipTests
+RUN mvn clean install -DskipTests -Dfile=target
 
 
 ARG JAR_FILE=target/*.jar
-#ADD ./target/*.jar /dev/
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
 
-
-
-################33
-
-
-#FROM openjdk:11
-#ARG JAR_FILE=target/*.jar
-#COPY ${JAR_FILE} app.jar
-#ENTRYPOINT ["java","-jar","/app.jar"]

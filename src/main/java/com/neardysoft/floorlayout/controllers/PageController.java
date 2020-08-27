@@ -16,7 +16,7 @@ public class PageController {
         this.pointService = pointService;
     }
 
-    @GetMapping("/home")
+    @GetMapping("")
     public String home() {
         return "Index";
     }
