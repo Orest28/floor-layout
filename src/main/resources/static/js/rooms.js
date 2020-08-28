@@ -11,15 +11,12 @@ async function fillData() {
 
     let th1 = document.createElement('th');
     let th2 = document.createElement('th');
-    let th3 = document.createElement('th');
 
     th1.innerText = "ID";
-    th2.innerText = "Room`s name";
-    th3.innerText = "Actions";
+    th2.innerText = "Actions";
 
     thead.appendChild(th1);
     thead.appendChild(th2);
-    thead.appendChild(th3);
 
     table.appendChild(thead);
     table.className = "ui celled table";
@@ -42,11 +39,7 @@ async function fillData() {
         td1.innerText = element.id;
 
         let td2 = document.createElement("td");
-        td2.setAttribute("data-label", "name");
-        td2.innerText = element.name;
-
-        let td3 = document.createElement("td");
-        td3.setAttribute("data-label", "actions");
+        td2.setAttribute("data-label", "actions");
 
         let buttonShow = document.createElement("button");
         buttonShow.innerText = "Show";
@@ -58,13 +51,23 @@ async function fillData() {
         let buttonDelete = document.createElement("button");
         buttonDelete.innerText = "Delete";
         buttonDelete.className = "ui inverted red button";
+        buttonDelete.addEventListener("click", function () {
+            deleteRoom(element.id);
+        })
 
-        td3.appendChild(buttonShow);
-        td3.appendChild(buttonDelete);
+        let buttonUpdate = document.createElement("button");
+        buttonUpdate.innerHTML = "Update";
+        buttonUpdate.className = "ui inverted yellow button";
+        buttonUpdate.addEventListener("click", function () {
+            updateRoom(element.id);
+        })
+
+        td2.appendChild(buttonShow);
+        td2.appendChild(buttonDelete);
+        td2.appendChild(buttonUpdate);
 
         tr.appendChild(td1);
         tr.appendChild(td2);
-        tr.appendChild(td3);
 
         tbody.appendChild(tr);
         table.appendChild(tbody);
@@ -73,4 +76,18 @@ async function fillData() {
 
 function showRoom(id) {
     window.location.replace("http://localhost:8080/room/" + id);
+}
+
+async function deleteRoom(id) {
+    let response = await fetch("http://localhost:8080/api/rooms/delete/" + id, {
+        method: 'DELETE'
+    });
+
+    if(response.status === 200) {
+        window.location.replace("http://localhost:8080/rooms");
+    }
+}
+
+function updateRoom(id) {
+    window.location.replace("http://localhost:8080/room/update/" + id);
 }

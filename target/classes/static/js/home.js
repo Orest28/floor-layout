@@ -41,7 +41,6 @@ function errorDisplay(message) {
     blockError.style.fontWeight = 'bold';
 
     coordinatesBlock.appendChild(blockError)
-
 }
 
 

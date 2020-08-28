@@ -3,6 +3,7 @@ package com.neardysoft.floorlayout.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +13,10 @@ public class Point {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Digits(integer = 6, fraction = 0, message = "number is not integer")
     private int x;
 
+    @Digits(integer = 6, fraction = 0, message = "number is not integer")
     private int y;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -40,6 +43,16 @@ public class Point {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                ", room=" + room +
+                '}';
     }
 
     public Long getId() {

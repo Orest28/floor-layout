@@ -1,17 +1,18 @@
 package com.neardysoft.floorlayout.services;
 
-import com.neardysoft.floorlayout.exceptions.exceptions.NumberOfAnglesException;
-import com.neardysoft.floorlayout.exceptions.exceptions.RoomInfiniteException;
-import com.neardysoft.floorlayout.exceptions.exceptions.WallsDiagonalException;
-import com.neardysoft.floorlayout.exceptions.exceptions.WallsIntersectException;
+import com.neardysoft.floorlayout.exceptions.exceptions.*;
 import com.neardysoft.floorlayout.models.Point;
 import com.neardysoft.floorlayout.models.Room;
 import com.neardysoft.floorlayout.repositories.PointRepository;
 import com.neardysoft.floorlayout.repositories.RoomRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class RoomService {
@@ -30,21 +31,44 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
+    public void deleteRoom(String id) {
+        roomRepository.deleteById(Long.parseLong(id));
+    }
+
+    public ResponseEntity<?> updateRoom(String id, Point[] points) {
+
+        Room room = roomRepository.findById(Long.parseLong(id)).orElseThrow(() -> new RoomNotFoundException("room not found"));
+
+        validateRoom(points);
+
+        List<Point> oldPoints = StreamSupport.stream(pointRepository.getAllByRoomId(Long.parseLong(id)).spliterator(), false).collect(Collectors.toList());
+
+        for(int i = 0; i < oldPoints.size(); i++) {
+            oldPoints.get(i).setX(points[i].getX());
+            oldPoints.get(i).setY(points[i].getY());
+        }
+
+        pointRepository.saveAll(oldPoints);
+
+        return new ResponseEntity<>("The data updated successfully", HttpStatus.OK);
+    }
 
     public void validateRoom(Point[] points) {
-
         if(points.length < 4) throw new NumberOfAnglesException("Illegal, Your set of points form only two corners");
         checkDiagonalWalls(points);
         checkInfiniteRoom(points);
         checkIntersectRoom(points);
+    }
 
-        Room room = new Room("default", Arrays.stream(points).collect(Collectors.toList()));
+    public void validateCreatedRoom(Point[] points) {
 
-        for(Point point : points) {
-            point.setRoom(room);
-        }
+        validateRoom(points);
 
-        pointRepository.saveAll(Arrays.stream(points).collect(Collectors.toList()));
+        Room room = new Room(Arrays.stream(points).collect(Collectors.toList()));
+
+        Arrays.stream(points).forEach(p->p.setRoom(room));
+
+        roomRepository.save(room);
     }
 
     public void checkDiagonalWalls(Point[] points) {
@@ -64,6 +88,8 @@ public class RoomService {
 
     public void checkInfiniteRoom(Point[] points) {
 
+        // check line
+
         int determinant = 0;
 
         for(int i = 0; i < points.length - 1; i++) {
@@ -72,7 +98,7 @@ public class RoomService {
 
         determinant += (points[0].getX() - points[points.length - 1].getX()) * (points[0].getY() + points[points.length - 1].getY());
 
-        if(determinant < 0) throw new RoomInfiniteException("Illegal, your set of coordinates form infinite area");
+        if(determinant <= 0) throw new RoomInfiniteException("Illegal, your set of coordinates form infinite area");
     }
 
     public void checkIntersectRoom(Point[] points) {

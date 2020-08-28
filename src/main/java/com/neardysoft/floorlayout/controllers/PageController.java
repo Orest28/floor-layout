@@ -16,7 +16,7 @@ public class PageController {
         this.pointService = pointService;
     }
 
-    @GetMapping("")
+    @GetMapping({"", "/home"})
     public String home() {
         return "Index";
     }
@@ -30,5 +30,14 @@ public class PageController {
         model.addAttribute("points", pointService.getPointsFromRoom(roomId));
 
         return "Room";
+    }
+
+    @GetMapping("/room/update/{roomId}")
+    public String roomUpdate(@PathVariable String roomId, Model model) {
+
+        model.addAttribute("points", pointService.getPointsFromRoom(roomId));
+        model.addAttribute("id", roomId);
+
+        return "RoomUpdate";
     }
 }

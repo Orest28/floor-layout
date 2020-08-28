@@ -13,21 +13,24 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Point> point;
 
     public Room() {
     }
 
-    public Room(String name, List<Point> point) {
-        this.name = name;
-        this.point = point;
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", point=" + point +
+                '}';
     }
 
-
+    public Room(List<Point> point) {
+        this.point = point;
+    }
 
     public Long getId() {
         return id;
@@ -35,14 +38,6 @@ public class Room {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<Point> getPoint() {

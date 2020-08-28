@@ -24,18 +24,15 @@
     let canvas = document.getElementById("myCanvas");
     let ctx = canvas.getContext("2d");
     ctx.translate(500, 250);
-
-    ctx.beginPath();
-
-    //ctx.scale(4,4);
+    ctx.scale(1, -1);
 
     let scl = 20;
-
+    ctx.font = "8px Arial";
     ctx.beginPath();
 
-    for(let i=0; i<pointsArr.length; i++){
-        let sx=scl*pointsArr[i].x;
-        let sy=scl*pointsArr[i].y;
+    for(let i = 0; i < pointsArr.length; i++) {
+        let sx = scl * pointsArr[i].x;
+        let sy = scl * pointsArr[i].y;
         if(i===0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
     }
 
