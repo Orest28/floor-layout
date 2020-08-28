@@ -4,6 +4,10 @@ Please, use mvn clean package with -DskipTests key, because database is in conta
 ```
 mvn clean package -DskipTests
 ```
+After this execute the following command
+```
+mvn clean install -DskipTests
+```
 
 ### Docker
 To run program use following commands
