@@ -14,8 +14,7 @@ docker-compose up
 
 ### Requests (Post)
 
-To send new data, use the following requests.
-Use this url 
+To send new data, use the following requests, Using this url 
 ```
 http://localhost:8080/api/rooms/validateRoom
 ```
