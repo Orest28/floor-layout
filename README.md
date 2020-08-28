@@ -6,7 +6,7 @@ mvn clean package -DskipTests
 ```
 
 ### Docker
-For run program use following command
+For run program use following commands
 ```
 docker-compose build
 docker-compose up
