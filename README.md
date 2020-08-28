@@ -12,12 +12,13 @@ docker-compose build
 docker-compose up
 ```
 
-### Requests
+### Requests (Post)
 
 To send new data, use the following request
 
 #### Succesfull requests
 ```
+http://localhost:8080/api/rooms/validateRoom
 [
         {"x" : 1, "y" : 1},
         {"x" : 2, "y" : 1},
@@ -28,6 +29,7 @@ To send new data, use the following request
 ```
 #### Bad request
 ```
+http://localhost:8080/api/rooms/validateRoom
 [
         {"x" : 1, "y" : 1},
         {"x" : 2, "y" : 2}
