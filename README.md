@@ -12,4 +12,24 @@ docker-compose build
 docker-compose up
 ```
 
+### Requests
 
+To send new data, use the following request
+
+#### Succesfull requests
+```
+[
+        {"x" : 1, "y" : 1},
+        {"x" : 2, "y" : 1},
+        {"x" : 2, "y" : 0},
+        {"x" : 1, "y" : 0}
+]
+
+```
+#### Bad request
+```
+[
+        {"x" : 1, "y" : 1},
+        {"x" : 2, "y" : 2}
+]
+```
